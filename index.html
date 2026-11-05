@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelación de Género | Stitch & Angel</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fff1f2 50%, #fdf2f8 100%);
+            color: #334155;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .font-serif-custom { font-family: 'Playfair Display', serif; }
+        .font-fun { font-family: 'Fredoka', cursive, sans-serif; }
+
+        /* Tarjeta cristalina luminosa */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 3px solid rgba(251, 191, 36, 0.6);
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.08), 0 0 25px rgba(244, 114, 182, 0.08);
+        }
+
+        /* Marco dorado fijo con fondo blanco */
+        .white-gold-frame {
+            background: #ffffff;
+            border: 4px solid #f59e0b;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.25), inset 0 0 15px rgba(254, 243, 199, 0.8);
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Movimiento suave de la imagen dentro del marco */
+        .img-internal-bounce {
+            animation: floatImage 4s ease-in-out infinite;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.03); }
+        }
+
+        /* Botón Espejo Dorado */
+        .mirror-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fbbf24 0%, #fff7cc 35%, #f59e0b 70%, #fef3c7 100%);
+            color: #1e293b;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35), inset 0 2px 5px rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .mirror-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.9) 50%, transparent 100%);
+            transform: rotate(30deg) translate(-100%, -100%);
+            animation: shine 3.5s infinite ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-100%, -100%); }
+            25% { transform: rotate(30deg) translate(100%, 100%); }
+            100% { transform: rotate(30deg) translate(100%, 100%); }
+        }
+
+        .mirror-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Divisiones doradas animadas */
+        .electric-gold-line {
+            background: linear-gradient(to right, #fbbf24, #fff7cc, #f59e0b, #ffffff, #fbbf24);
+            background-size: 200% 200%;
+            animation: goldFlow 3s infinite linear;
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+        }
+
+        @keyframes goldFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Tarjeta Equipo Niño */
+        .frame-stitch {
+            border: 4px solid #38bdf8;
+            background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+            box-shadow: 0 12px 28px rgba(14, 165, 233, 0.25);
+            transition: all 0.3s ease;
+        }
+        .frame-stitch:hover { 
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 18px 36px rgba(14, 165, 233, 0.4); 
+            border-color: #0284c7;
+        }
+
+        /* Tarjeta Equipo Niña */
+        .frame-angel {
+            border: 4px solid #f472b6;
+            background: linear-gradient(135deg, #ffffff 0%, #fce7f3 100%);
+            box-shadow: 0 12px 28px rgba(236, 72, 153, 0.25);
+            transition: all 0.3s ease;
+        }
+        .frame-angel:hover { 
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 18px 36px rgba(236, 72, 153, 0.4);
+            border-color: #db2777;
+        }
+
+        /* TRANSICIÓN SUAVE Y SUTIL ENTRE MÓDULOS */
+        .module-section {
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform, filter;
+        }
+        .hidden-module {
+            display: none !important;
+            opacity: 0;
+            transform: scale(0.97) translateY(10px);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        .active-module {
+            display: flex !important;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0px);
+            pointer-events: auto;
+        }
+
+        /* ESTILO INFANTIL Y TIERNO PARA "UN MOMENTO INOLVIDABLE" */
+        .infantil-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fffbeb 50%, #fef2f2 100%);
+            border: 3px dashed #fbbf24;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.15), inset 0 0 20px rgba(254, 243, 199, 0.5);
+            position: relative;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between">
+
+    <!-- REPRODUCTOR DE AUDIO PRINCIPAL (Mantiene su posición/progreso y se pausa sin reiniciarse) -->
+    <audio id="audio-principal" loop src="musica-principal.mp3" preload="auto"></audio>
+    <!-- REPRODUCTOR DE AUDIO SECUNDARIO (Para pantallas con canción propia) -->
+    <audio id="audio-secundario" loop preload="auto"></audio>
+
+    <!-- Botón Flotante de Música -->
+    <button id="music-btn" onclick="toggleMusic(event)" class="fixed top-4 right-4 z-50 w-12 h-12 rounded-full bg-white/95 border-2 border-amber-400 text-amber-600 shadow-lg flex items-center justify-center transition-transform hover:scale-110 cursor-pointer">
+        <i id="music-icon" class="fa-solid fa-music text-lg"></i>
+    </button>
+
+    <!-- MÓDULO 1: MENÚ PRINCIPAL Y BIENVENIDA -->
+    <div id="module-1" class="module-section active-module min-h-screen w-full flex-col items-center justify-center p-4 relative z-10">
+        <div class="glass-card max-w-2xl w-full mx-auto p-6 sm:p-10 rounded-3xl text-center space-y-6 relative">
+            
+            <!-- Marco Dorado Fijo con Foto en Movimiento Interno -->
+            <div class="w-56 sm:w-64 mx-auto p-3 white-gold-frame">
+                <img src="stitch-angel-hug.png" alt="Stitch y Angel" class="w-full h-auto object-contain img-internal-bounce">
+            </div>
+
+            <div class="space-y-2">
+                <span class="text-xs sm:text-sm uppercase tracking-widest font-bold text-amber-600">¡Bienvenidos a nuestra dulce espera!</span>
+                <h1 class="font-fun text-3xl sm:text-5xl font-bold text-slate-800 leading-tight">
+                    Gran Revelación de Género<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-amber-500 to-pink-500">¿Stitch o Angel?</span>
+                </h1>
+            </div>
+
+            <div class="h-1.5 w-3/4 mx-auto rounded-full electric-gold-line"></div>
+
+            <p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto font-medium">
+                Acompáñanos a descubrir la emoción más grande de nuestras vidas. Haz clic abajo para comenzar.
+            </p>
+
+            <div class="pt-2">
+                <button onclick="goToModule(2)" class="mirror-btn group inline-flex items-center gap-3 px-8 py-4 rounded-full text-base sm:text-lg font-bold uppercase tracking-wider cursor-pointer">
+                    <span>Abrir Invitación</span>
+                    <i class="fa-solid fa-envelope-open text-pink-600 transition-transform group-hover:scale-110"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÓDULO 2: FORMULARIO DE CONFIRMACIÓN -->
+    <div id="module-2" class="module-section hidden-module min-h-screen w-full flex-col items-center justify-center p-4 relative z-10">
+        <div class="glass-card max-w-md w-full mx-auto p-6 sm:p-8 rounded-3xl space-y-6">
+            
+            <div class="text-center space-y-2">
+                <h2 class="font-fun text-2xl sm:text-3xl font-bold text-slate-800">Confirmación de Asistencia</h2>
+                <p class="text-slate-600 text-xs sm:text-sm">Por favor, compártenos tus datos para recibirte con alegría ✨</p>
+            </div>
+
+            <form id="attendance-form" onsubmit="handleAttendance(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Nombre Completo:</label>
+                    <input type="text" id="user-name" required placeholder="Escribe tu nombre..." class="w-full px-4 py-3 rounded-2xl bg-white border-2 border-amber-300 focus:border-amber-500 focus:outline-none text-slate-800 font-medium shadow-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">¿Asistirás al evento?</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-sky-50/80 border border-sky-300 cursor-pointer hover:bg-sky-100/80 transition-colors">
+                            <input type="radio" name="attendance" value="Sí" required class="w-4 h-4 text-sky-600">
+                            <span class="font-fun text-sm font-semibold text-sky-900">¡Sí! Ahí estaré con gusto 🎉</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-pink-50/80 border border-pink-300 cursor-pointer hover:bg-pink-100/80 transition-colors">
+                            <input type="radio" name="attendance" value="No" class="w-4 h-4 text-pink-600">
+                            <span class="font-fun text-sm font-semibold text-pink-900">No podré asistir 😔</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-300 cursor-pointer hover:bg-amber-100/80 transition-colors">
+                            <input type="radio" name="attendance" value="Aún no lo sé" class="w-4 h-4 text-amber-600">
+                            <span class="font-fun text-sm font-semibold text-amber-900">Aún no lo sé 🙈</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-3">
+                    <button type="submit" class="mirror-btn w-full py-4 rounded-full font-bold text-base uppercase tracking-wider shadow-md cursor-pointer">
+                        Continuar <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MÓDULO 3: INFORMACIÓN, LUGAR, ECOGRAFÍAS Y ELECCIÓN -->
+    <div id="module-3" class="module-section hidden-module min-h-screen w-full flex-col items-center justify-center p-4 py-8 relative z-10">
+        
+        <!-- Botón Volver -->
+        <button onclick="goToModule(1)" class="fixed top-4 left-4 z-50 px-4 py-2 rounded-full bg-white/95 border-2 border-amber-400 text-slate-700 font-bold text-xs shadow-md flex items-center gap-2 hover:bg-amber-50 cursor-pointer">
+            <i class="fa-solid fa-xmark text-sm"></i> Regresar
+        </button>
+
+        <div class="max-w-4xl w-full glass-card rounded-3xl p-6 sm:p-10 space-y-8 my-auto relative">
+            
+            <!-- Foto Superior con Movimiento en Marco Fijo -->
+            <div class="w-36 sm:w-44 mx-auto p-2 white-gold-frame -mt-4">
+                <img src="stitch-angel-top.png" alt="Stitch y Angel juntos" class="w-full h-auto object-contain img-internal-bounce">
+            </div>
+
+            <!-- TARJETA INFANTIL CON MÁS DETALLES: "UN MOMENTO INOLVIDABLE" -->
+            <div class="infantil-card p-6 sm:p-8 rounded-3xl text-center space-y-4">
+                <!-- Iconos y adornos infantiles -->
+                <div class="flex items-center justify-center gap-3 text-amber-500 text-lg sm:text-xl">
+                    <i class="fa-solid fa-baby-carriage"></i>
+                    <i class="fa-solid fa-star text-amber-400"></i>
+                    <i class="fa-solid fa-heart text-pink-400"></i>
+                    <i class="fa-solid fa-cloud text-sky-300"></i>
+                    <i class="fa-solid fa-star text-amber-400"></i>
+                    <i class="fa-solid fa-baby"></i>
+                </div>
+
+                <h2 class="font-fun text-3xl sm:text-4xl font-bold text-slate-800 tracking-wide">
+                    ✨ Un Momento Inolvidable ✨
+                </h2>
+
+                <div class="h-1 w-24 mx-auto bg-amber-400 rounded-full"></div>
+
+                <p class="font-fun text-slate-700 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+                    🍼 <strong>Querida familia e intimos amigos:</strong><br>
+                    Nuestros corazones se desbordan de alegría mientras esperamos con infinita ilusión la llegada de nuestro precioso bebé. Cada latido, cada detalle y cada paso de este dulce viaje cobran un valor mágico al poder compartirlos con todos ustedes.
+                </p>
+
+                <p class="text-xs sm:text-sm text-slate-600 font-medium italic">
+                    💖 "Su amor, bendiciones y cálida presencia convierten esta esperada revelación en el recuerdo más hermoso de nuestras vidas."
+                </p>
+
+                <div class="pt-1 flex justify-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
+                    <span class="bg-amber-100 px-3 py-1 rounded-full border border-amber-300">👶 Con todo nuestro amor</span>
+                    <span class="bg-pink-100 px-3 py-1 rounded-full border border-pink-300 text-pink-700">✨ Dulce Espera</span>
+                </div>
+            </div>
+
+            <!-- Detalles del Evento -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="bg-sky-50 border-2 border-sky-300 p-4 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-sky-500 text-white flex items-center justify-center text-lg mb-1 shadow-md">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-sky-800">Lugar</span>
+                    <span class="font-fun font-bold text-base text-slate-800">Vereda del Lago</span>
+                </div>
+
+                <div class="bg-amber-50 border-2 border-amber-300 p-4 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center text-lg mb-1 shadow-md">
+                        <i class="fa-solid fa-calendar-day"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-amber-800">Fecha</span>
+                    <span class="font-fun font-bold text-base text-slate-800">22 / 11 / 2026</span>
+                </div>
+
+                <div class="bg-pink-50 border-2 border-pink-300 p-4 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-pink-500 text-white flex items-center justify-center text-lg mb-1 shadow-md">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase text-pink-800">Hora</span>
+                    <span class="font-fun font-bold text-base text-slate-800">10:00 AM</span>
+                </div>
+            </div>
+
+            <!-- Botón Radiografías -->
+            <div class="text-center">
+                <button onclick="openXrayModal()" class="mirror-btn px-8 py-4 rounded-full font-bold text-sm sm:text-base uppercase tracking-wider inline-flex items-center gap-3 cursor-pointer">
+                    <i class="fa-solid fa-x-ray text-slate-800 text-lg"></i>
+                    <span>Ver Radiografías 🩻</span>
+                </button>
+            </div>
+
+            <div class="h-1 rounded-full electric-gold-line"></div>
+
+            <!-- Sección Votación de Equipo -->
+            <div class="space-y-4 text-center">
+                <h3 class="font-fun text-2xl sm:text-3xl font-bold text-slate-800">¿Cuál es tu preferencia?</h3>
+                <p class="text-slate-600 text-xs sm:text-sm">Selecciona tu opción para ayudarnos a preparar la dulce sorpresa:</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                    <!-- Equipo Niño (Diseño Azul) -->
+                    <div onclick="selectTeam('niño')" class="frame-stitch rounded-3xl p-6 cursor-pointer text-center group relative overflow-hidden">
+                        <div class="w-32 sm:w-40 mx-auto mb-3 p-2 white-gold-frame">
+                            <img src="stitch-bebe.png" alt="Stitch Bebé" class="w-full h-auto object-contain img-internal-bounce">
+                        </div>
+                        <h4 class="font-fun text-2xl font-bold text-sky-700">Equipo Niño 💙</h4>
+                        <p class="text-xs font-bold uppercase tracking-wider text-sky-600 mt-1">Stitch</p>
+                    </div>
+
+                    <!-- Equipo Niña (Diseño Rosado) -->
+                    <div onclick="selectTeam('niña')" class="frame-angel rounded-3xl p-6 cursor-pointer text-center group relative overflow-hidden">
+                        <div class="w-32 sm:w-40 mx-auto mb-3 p-2 white-gold-frame">
+                            <img src="angel-bebe.png" alt="Angel Bebé" class="w-full h-auto object-contain img-internal-bounce">
+                        </div>
+                        <h4 class="font-fun text-2xl font-bold text-pink-700">Equipo Niña 💗</h4>
+                        <p class="text-xs font-bold uppercase tracking-wider text-pink-600 mt-1">Angel</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL POPUP CONFIRMACIÓN EQUIPO -->
+    <div id="team-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center space-y-6 border-4 border-amber-400 shadow-2xl relative">
+            <button onclick="closeTeamModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="team-modal-content" class="space-y-4"></div>
+            <button onclick="closeTeamModal()" class="mirror-btn w-full py-3.5 rounded-full font-bold uppercase text-sm cursor-pointer">¡Entendido, allá estaré!</button>
+        </div>
+    </div>
+
+    <!-- MODAL GALERÍA DE RADIOGRAFÍAS / ECOGRAFÍAS -->
+    <div id="xray-modal" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 text-center space-y-4 border-4 border-amber-400 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeXrayModal()" class="absolute top-4 right-4 text-slate-600 hover:text-slate-900 text-xl font-bold cursor-pointer bg-amber-200 hover:bg-amber-300 w-10 h-10 rounded-full flex items-center justify-center border-2 border-amber-400 shadow-md">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h3 class="font-fun text-2xl font-bold text-slate-800">🩻 Radiografías / Ecografías de Nuestro Bebé</h3>
+            <p class="text-xs text-slate-500 font-medium">Haz clic en cualquier imagen para verla en tamaño completo</p>
+
+            <div id="xray-gallery" class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2"></div>
+        </div>
+    </div>
+
+    <!-- MODAL VISOR AMPLIADO (LIGHTBOX) CON X CLARA Y CIERRE AL HACER CLIC AFUERA -->
+    <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 bg-slate-950/90 backdrop-blur-lg z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        
+        <div onclick="event.stopPropagation()" class="relative max-w-xl w-full flex flex-col items-center">
+            
+            <!-- Botón X SUPER DESTACADO (Rojo/Dorado) -->
+            <button onclick="closeLightbox()" class="absolute -top-12 -right-2 text-white bg-rose-600 hover:bg-rose-700 w-12 h-12 rounded-full flex items-center justify-center shadow-2xl border-2 border-amber-300 z-50 transition-transform hover:scale-110 active:scale-95 cursor-pointer" title="Cerrar ecografía">
+                <i class="fa-solid fa-xmark text-2xl font-bold"></i>
+            </button>
+
+            <!-- Stitch & Angel Posando Superior -->
+            <div class="w-36 sm:w-44 z-25 -mb-6 p-2 white-gold-frame">
+                <img src="stitch-angel-top.png" alt="Stitch y Angel Posando" class="w-full h-auto object-contain img-internal-bounce">
+            </div>
+
+            <!-- Imagen Ampliada -->
+            <div class="white-gold-frame p-2 w-full max-h-[70vh] flex items-center justify-center shadow-2xl">
+                <img id="lightbox-img" src="" alt="Ecografía Ampliada" class="max-h-[65vh] w-auto max-w-full object-contain rounded-2xl">
+            </div>
+
+            <p class="text-amber-300 text-xs font-semibold mt-3 tracking-widest uppercase">✨ Toca la X o afuera para cambiar de radiografía ✨</p>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN TELEGRAM API
+        const TELEGRAM_BOT_TOKEN = '8151216654:AAHLM79hSfgw4V90-8eX9_Lh1XGZ52Qk2fM';
+        const TELEGRAM_CHAT_ID = '1987550130';
+
+        // ECOGRAFÍAS
+        const ecos = [
+            'ecografia1.jpg',
+            'ecografia2.jpg',
+            'ecografia3.jpg',
+            'ecografia4.jpg',
+            'ecografia5.jpg',
+            'ecografia6.jpg'
+        ];
+
+        let userData = { name: '', attendance: '' };
+
+        const audioPrincipal = document.getElementById('audio-principal');
+        const audioSecundario = document.getElementById('audio-secundario');
+        const musicIcon = document.getElementById('music-icon');
+        let isUsingSecundario = false;
+
+        // INICIAR LA MÚSICA PRINCIPAL EN EL SEGUNDO 0 ANTE LA PRIMERA INTERACCIÓN
+        function startAudioInSegundoZero() {
+            if (audioPrincipal.paused && !isUsingSecundario) {
+                audioPrincipal.play().then(() => {
+                    musicIcon.className = "fa-solid fa-music text-lg text-amber-600";
+                }).catch(() => {});
+            }
+        }
+
+        // Eventos para asegurar que la música empiece inmediatamente en el segundo 0
+        ['click', 'touchstart', 'keydown', 'mousemove'].forEach(evt => {
+            window.addEventListener(evt, startAudioInSegundoZero, { once: true });
+        });
+
+        // REANUDAR LA MÚSICA PRINCIPAL (SE PAUSA, NO SE REINICIA)
+        function resumeMusicaPrincipal() {
+            if (isUsingSecundario) {
+                audioSecundario.pause();
+                audioSecundario.currentTime = 0;
+                isUsingSecundario = false;
+            }
+            // Simplemente reproduce la canción principal desde donde se quedó previamente
+            audioPrincipal.play().then(() => {
+                musicIcon.className = "fa-solid fa-music text-lg text-amber-600";
+            }).catch(e => console.log("Reanudación pendiente de interacción"));
+        }
+
+        // ACTIVAR CANCIÓN PROPIA EN VENTANAS ESPECÍFICAS (PAUSA LA PRINCIPAL SIN REINICIARLA)
+        function playCustomTrack(filename) {
+            // Pausar música principal guardando su posición exacta (no se reinicia)
+            audioPrincipal.pause();
+            isUsingSecundario = true;
+
+            audioSecundario.src = filename;
+            audioSecundario.play().then(() => {
+                musicIcon.className = "fa-solid fa-music text-lg text-amber-600";
+            }).catch(e => console.log("Canción propia pendiente"));
+        }
+
+        function toggleMusic(e) {
+            e.stopPropagation();
+            const currentAudio = isUsingSecundario ? audioSecundario : audioPrincipal;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                musicIcon.className = "fa-solid fa-music text-lg text-amber-600";
+            } else {
+                currentAudio.pause();
+                musicIcon.className = "fa-solid fa-music-slash text-lg text-slate-400";
+            }
+        }
+
+        // TRANSICIÓN SUTIL Y AGRADABLE ENTRE MÓDULOS
+        function goToModule(moduleNum) {
+            startAudioInSegundoZero();
+            
+            const currentActive = document.querySelector('.module-section.active-module');
+            const targetModule = document.getElementById(`module-${moduleNum}`);
+
+            if (currentActive === targetModule) return;
+
+            if (currentActive) {
+                currentActive.classList.remove('active-module');
+                currentActive.classList.add('hidden-module');
+            }
+
+            setTimeout(() => {
+                targetModule.classList.remove('hidden-module');
+                targetModule.classList.add('active-module');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 150);
+
+            // Si se vuelve a módulos generales (1, 2 o 3), reanudar la música principal sin reiniciarla
+            resumeMusicaPrincipal();
+        }
+
+        function sendTelegramMessage(text) {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: 'HTML' })
+            }).catch(err => console.error("Error Telegram:", err));
+        }
+
+        function handleAttendance(e) {
+            e.preventDefault();
+            const name = document.getElementById('user-name').value.trim();
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+
+            userData.name = name;
+            userData.attendance = attendance;
+
+            const msg = `📥 <b>NUEVA RESPUESTA DE ASISTENCIA</b>\n\n👤 <b>Nombre:</b> ${name}\n❓ <b>¿Asistirá?:</b> ${attendance}`;
+            sendTelegramMessage(msg);
+
+            goToModule(3);
+        }
+
+        // SELECCIÓN DE EQUIPO (PAUSA PRINCIPAL Y ACTIVA CANCIÓN PROPIA)
+        function selectTeam(team) {
+            const content = document.getElementById('team-modal-content');
+            const modal = document.getElementById('team-modal');
+
+            let msg = '';
+            if (team === 'niño') {
+                playCustomTrack('musica-ninio.mp3'); // Canción propia Stitch
+                content.innerHTML = `
+                    <div class="w-20 h-20 mx-auto rounded-full bg-sky-100 border-2 border-sky-400 flex items-center justify-center text-3xl text-sky-600 shadow-md">💙</div>
+                    <h3 class="font-fun text-2xl font-bold text-sky-900">¡Elegiste Equipo Stitch (Niño)!</h3>
+                    <p class="text-slate-700 text-sm leading-relaxed italic">
+                        "¡Qué emoción tan grande! Nos llena el alma saber que nos acompañas a soñar con la llegada de nuestro pequeño campeón. Tu cariño hace que este camino esté lleno de pura alegría y amor."
+                    </p>
+                    <div class="bg-sky-50 border-2 border-sky-300 p-4 rounded-2xl text-left space-y-2 shadow-inner">
+                        <p class="text-xs font-bold text-sky-900 uppercase tracking-wider">💙 Indicaciones Especiales:</p>
+                        <p class="text-xs text-sky-800">👕 <strong>Vestimenta:</strong> Por favor asiste con una <strong>camisa o prenda de color AZUL</strong>.</p>
+                        <p class="text-xs text-sky-800">🎁 <strong>Obsequio sugerido:</strong> Un paquete de <strong>Pañales</strong>.</p>
+                    </div>
+                `;
+                msg = `💙 <b>VOTO DE EQUIPO REGISTRADO</b>\n\n👤 <b>Invitado:</b> ${userData.name || 'Anónimo'}\n👶 <b>Equipo:</b> NIÑO (Stitch)\n🎁 <b>Traerá:</b> Pañales\n👕 <b>Camisa:</b> Azul`;
+            } else {
+                playCustomTrack('musica-ninia.mp3'); // Canción propia Angel
+                content.innerHTML = `
+                    <div class="w-20 h-20 mx-auto rounded-full bg-pink-100 border-2 border-pink-400 flex items-center justify-center text-3xl text-pink-600 shadow-md">💗</div>
+                    <h3 class="font-fun text-2xl font-bold text-pink-900">¡Elegiste Equipo Angel (Niña)!</h3>
+                    <p class="text-slate-700 text-sm leading-relaxed italic">
+                        "¡Qué alegría tan hermosa en nuestros corazones! Nos emociona profundamente que formes parte de esta dulce espera para dar la bienvenida a nuestra hermosa princesa."
+                    </p>
+                    <div class="bg-pink-50 border-2 border-pink-300 p-4 rounded-2xl text-left space-y-2 shadow-inner">
+                        <p class="text-xs font-bold text-pink-900 uppercase tracking-wider">💗 Indicaciones Especiales:</p>
+                        <p class="text-xs text-pink-800">👗 <strong>Vestimenta:</strong> Por favor asiste con una <strong>camisa o prenda de color ROSA</strong>.</p>
+                        <p class="text-xs text-rose-800">🎁 <strong>Obsequio sugerido:</strong> Un paquete de <strong>Toallitas Húmedas</strong>.</p>
+                    </div>
+                `;
+                msg = `💗 <b>VOTO DE EQUIPO REGISTRADO</b>\n\n👤 <b>Invitado:</b> ${userData.name || 'Anónimo'}\n👶 <b>Equipo:</b> NIÑA (Angel)\n🎁 <b>Traerá:</b> Toallitas Húmedas\n👗 <b>Camisa:</b> Rosa`;
+            }
+
+            sendTelegramMessage(msg);
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        function closeTeamModal() {
+            const modal = document.getElementById('team-modal');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            resumeMusicaPrincipal(); // Reanuda la principal sin reiniciarla
+        }
+
+        // ABRIR RADIOGRAFÍAS (PAUSA PRINCIPAL Y ACTIVA CANCIÓN PROPIA DE ECOGRAFÍAS)
+        function openXrayModal() {
+            playCustomTrack('musica-radiografias.mp3');
+            const gallery = document.getElementById('xray-gallery');
+            gallery.innerHTML = '';
+
+            ecos.forEach((src, idx) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'white-gold-frame p-1 cursor-pointer transform hover:scale-105 transition-transform';
+                imgContainer.onclick = () => openLightbox(src);
+                imgContainer.innerHTML = `<img src="${src}" alt="Ecografía ${idx+1}" class="w-full h-32 sm:h-36 object-cover rounded-xl" onerror="this.src='https://via.placeholder.com/200?text=Eco+${idx+1}'">`;
+                gallery.appendChild(imgContainer);
+            });
+
+            const modal = document.getElementById('xray-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        function closeXrayModal() {
+            const modal = document.getElementById('xray-modal');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            resumeMusicaPrincipal(); // Reanuda la principal sin reiniciarla
+        }
+
+        // VISOR AMPLIADO LIGHTBOX
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = src;
+
+            lightbox.classList.remove('opacity-0', 'pointer-events-none');
+            lightbox.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox-modal');
+            lightbox.classList.remove('opacity-100', 'pointer-events-auto');
+            lightbox.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Cerrar con la tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeXrayModal();
+                closeTeamModal();
+            }
+        });
+    </script>
+</body>
+</html>
